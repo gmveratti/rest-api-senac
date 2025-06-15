@@ -1,9 +1,16 @@
+const jwt = require('jsonwebtoken');
 const Usuario = require('../models/Usuarios');
 const bcrypt = require('bcrypt');
+require('dotenv').config();
+
+const secretKey = process.env.SECRET_KEY;
 
 exports.obterTodosOsUsuarios = async (req, res) => {
   try {
-    const usuarios = await Usuario.findAll();
+    // Excluir o campo 'senha' dos resultados
+    const usuarios = await Usuario.findAll({
+      attributes: { exclude: ['senha'] }
+    });
     res.json(usuarios);
   } catch (error) {
     res.status(500).send('Erro ao buscar usuários');
@@ -34,7 +41,11 @@ exports.criarUsuario = async (req, res) => {
 
 exports.obterUsuarioPorId = async (req, res) => {
   try {
-    const usuario = await Usuario.findByPk(req.params.id);
+    // Excluir o campo 'senha' do resultado
+    const usuario = await Usuario.findByPk(req.params.id, {
+      attributes: { exclude: ['senha'] }
+    });
+
     if (usuario) {
       res.json(usuario);
     } else {
@@ -47,9 +58,17 @@ exports.obterUsuarioPorId = async (req, res) => {
 
 exports.atualizarUsuario = async (req, res) => {
   try {
-    const [atualizado] = await Usuario.update(req.body, {
+    const { senha, ...restoDoCorpo } = req.body;
+
+    // Se a senha for fornecida, criptografá-la
+    if (senha) {
+      restoDoCorpo.senha = await bcrypt.hash(senha, 10);
+    }
+
+    const [atualizado] = await Usuario.update(restoDoCorpo, {
       where: { id: req.params.id }
     });
+
     if (atualizado) {
       const usuarioAtualizado = await Usuario.findByPk(req.params.id);
       res.json(usuarioAtualizado);
@@ -73,5 +92,29 @@ exports.deletarUsuario = async (req, res) => {
     }
   } catch (error) {
     res.status(500).send('Erro ao deletar usuário');
+  }
+};
+
+exports.login = async (req, res) => {
+  const { email, senha } = req.body;
+
+  try {
+    const usuario = await Usuario.findOne({ where: { email } });
+
+    if (!usuario) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+
+    const senhaValida = await bcrypt.compare(senha, usuario.senha);
+
+    if (!senhaValida) {
+      return res.status(401).json({ error: 'Senha incorreta' });
+    }
+
+    const token = jwt.sign({ id: usuario.id, email: usuario.email }, secretKey, { expiresIn: '1h' });
+
+    res.json({ token });
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao fazer login' });
   }
 };
