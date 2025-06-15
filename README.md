@@ -103,3 +103,9 @@ A documentação completa e interativa de todos os endpoints está disponível a
 * **Aluno:** Gabriel Veratti
 * **Instrutor:** Edson Dionizio
 
+
+## 📜 Certificado de Conclusão
+
+Este projeto foi desenvolvido como parte dos requisitos para a conclusão do curso **Desenvolvedor Web Back-end Node.js** no Senac. Abaixo, o certificado de conclusão.
+
+[![Certificado de Conclusão](docs/certificadosenac.png)](docs/certificadosenac.png)
