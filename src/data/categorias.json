@@ -1,0 +1,12 @@
+[
+    {
+      "id": 1,
+      "nome": "Cachorros",
+      "descricao": "Animais de estimação caninos."
+    },
+    {
+      "id": 2,
+      "nome": "Gatos",
+      "descricao": "Animais de estimação felinos."
+    }
+  ]

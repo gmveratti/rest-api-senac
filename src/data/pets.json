@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Rex",
+    "species": "Dog",
+    "age": 5
+  },
+  {
+    "id": 2,
+    "name": "Nina",
+    "species": "Gato",
+    "age": 5
+  },
+  {
+    "name": "Rual",
+    "species": "Cachorro",
+    "age": 6,
+    "id": 3
+  },
+  {
+    "name": "Belinha",
+    "species": "Cachorro",
+    "age": 10,
+    "id": 4
+  },
+  {
+    "name": "Mario",
+    "species": "Papagaio",
+    "age": -2,
+    "id": 5
+  }
+]
