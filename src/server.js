@@ -11,7 +11,9 @@ const models = {
   Produto: require('./models/Produtos'),
   Usuario: require('./models/Usuarios'),
   Perfil: require('./models/Perfis'),
-  };
+  Venda: require('./models/Vendas'),  
+  VendaItem: require('./models/VendasItens')
+};
 
 // Estabelecendo associações
 Object.keys(models).forEach(modelName => {
@@ -29,6 +31,10 @@ const postsRoutes = require('./routes/posts');
 const produtosRoutes = require('./routes/produtos');
 const usuarioRoutes = require('./routes/usuarios');
 const perfilRoutes = require('./routes/perfis');
+
+const vendasRoutes = require('./routes/vendas');
+
+const vendas2Routes = require('./routes/vendas2');
 
 // Sincroniza o banco de dados
 sequelize.sync({ force: false }).then(() => {
@@ -49,6 +55,9 @@ app.use('/api/posts', postsRoutes);
 app.use('/api/produtos', produtosRoutes);
 app.use('/api/usuarios', usuarioRoutes);
 app.use('/api/perfis', perfilRoutes);
+
+app.use('/api/vendas', vendasRoutes);
+app.use('/api/vendas2', vendas2Routes);
 
 
 const PORT = process.env.PORT || 3000;
