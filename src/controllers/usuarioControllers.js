@@ -118,3 +118,25 @@ exports.login = async (req, res) => {
     res.status(500).json({ error: 'Erro ao fazer login' });
   }
 };
+
+exports.me = async (req, res) => {
+  try {
+    // O usuário já deve estar no req.user graças ao middleware authenticateJWT
+    const usuario = await Usuario.findByPk(req.user.id, {
+      attributes: { exclude: ['senha'] }
+    });
+
+    if (!usuario) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+
+    res.json([usuario]);
+  } catch (error) {
+    res.status(500).json({ error: 'Erro ao buscar informações do usuário' });
+  }
+};
+
+exports.logout = (req, res) => {
+  // Invalide o token no lado do cliente
+  res.json({ message: 'Logout realizado com sucesso' });
+};
