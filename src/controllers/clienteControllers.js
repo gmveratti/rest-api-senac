@@ -14,7 +14,13 @@ exports.criarCliente = async (req, res) => {
     const cliente = await Cliente.create(req.body);
     res.status(201).json(cliente);
   } catch (error) {
-    res.status(500).send('Erro ao criar cliente');
+    if (error.name === 'SequelizeValidationError') {
+      // Extrai a mensagem de erro específica
+      const mensagemErro = error.errors.map(err => err.message).join(', ');
+      res.status(400).send(mensagemErro);
+    } else {
+      res.status(500).send('Erro ao criar cliente');
+    }
   }
 };
 

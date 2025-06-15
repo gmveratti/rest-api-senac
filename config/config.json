@@ -5,7 +5,7 @@
   },
   "test": {
     "dialect": "sqlite",
-    "storage": ":memory:"
+    "storage": "src/data/petshop.db"
   },
   "production": {
     "dialect": "sqlite",

@@ -9,7 +9,12 @@ const Cliente = sequelize.define('Cliente', {
   email: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true
+    unique: true,
+    validate: {
+      isEmail: {
+        msg: "O e-mail deve ser um endereço de e-mail válido"
+      }
+    }
   },
   telefone: {
     type: DataTypes.STRING,
@@ -18,4 +23,5 @@ const Cliente = sequelize.define('Cliente', {
 }, {
   tableName: 'clientes'
 });
+
 module.exports = Cliente;

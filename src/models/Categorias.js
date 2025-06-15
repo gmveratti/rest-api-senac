@@ -9,7 +9,16 @@ const Categoria = sequelize.define('Categoria', {
   },
   nome: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    validate: {
+      notEmpty: {
+        msg: "O nome não pode ser vazio"
+      },
+      len: {
+        args: [3, 255],
+        msg: "O nome deve ter entre 3 e 255 caracteres"
+      }
+    }
   }
 }, {
   tableName: 'categorias'
