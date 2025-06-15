@@ -24,4 +24,9 @@ const Pet = sequelize.define('Pet', {
 },{
   tableName: 'pets'
 });
+
+Pet.associate = function(models) {
+  Pet.belongsTo(models.Cliente, { foreignKey: 'clienteId', as: 'cliente' });
+};
+
 module.exports = Pet;

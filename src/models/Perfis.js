@@ -15,4 +15,8 @@ const Perfil = sequelize.define('Perfil', {
   tableName: 'perfis'
 });
 
+Perfil.associate = function(models) {
+  Perfil.hasMany(models.Usuario, { foreignKey: 'perfilId', as: 'usuarios' });
+};
+
 module.exports = Perfil;

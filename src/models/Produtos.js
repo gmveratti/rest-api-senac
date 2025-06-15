@@ -28,4 +28,9 @@ const Produto = sequelize.define('Produto', {
   tableName: 'produtos'
 });
 
+Produto.associate = function(models) {
+  Produto.belongsTo(models.Categoria, { foreignKey: 'categoriaId', as: 'categoria' });
+  Produto.belongsTo(models.Subcategoria, { foreignKey: 'subcategoriaId', as: 'subcategoria' });
+};
+
 module.exports = Produto;

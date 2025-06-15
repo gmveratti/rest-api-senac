@@ -30,4 +30,8 @@ const Post = sequelize.define('Post', {
   tableName: 'posts'
 });
 
+Post.associate = function(models) {
+  Post.belongsTo(models.Categoria, { foreignKey: 'categoriaId', as: 'categoria' });
+};
+
 module.exports = Post;

@@ -56,4 +56,8 @@ const Usuario = sequelize.define('Usuario', {
   tableName: 'usuarios'
 });
 
+Usuario.associate = function(models) {
+  Usuario.belongsTo(models.Perfil, { foreignKey: 'perfilId', as: 'perfil' });
+};
+
 module.exports = Usuario;

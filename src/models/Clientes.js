@@ -24,4 +24,8 @@ const Cliente = sequelize.define('Cliente', {
   tableName: 'clientes'
 });
 
+Cliente.associate = function(models) {
+  Cliente.hasMany(models.Pet, { foreignKey: 'clienteId', as: 'pets' });
+};
+
 module.exports = Cliente;

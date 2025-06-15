@@ -24,4 +24,10 @@ const Categoria = sequelize.define('Categoria', {
   tableName: 'categorias'
 });
 
+Categoria.associate = function(models) {
+  Categoria.hasMany(models.Subcategoria, { foreignKey: 'categoriaId', as: 'subcategorias' });
+  Categoria.hasMany(models.Post, { foreignKey: 'categoriaId', as: 'posts' });
+  Categoria.hasMany(models.Produto, { foreignKey: 'categoriaId', as: 'produtos' });
+};
+
 module.exports = Categoria;
